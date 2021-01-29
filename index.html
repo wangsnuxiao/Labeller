@@ -2,8 +2,11 @@
 <div id="form"></div>
 
 <button onclick="goBack()">Go Back </button>
-<button onclick="skip()"> skip </button>>
+<button onclick="skip()"> skip </button>
+
 <script>
+
+
     function label(label){
         Labelbox.setLabelForAsset(label).then(() => {
             Labelbox.fetchNextAssetToLabel();
@@ -27,14 +30,23 @@
         document.querySelector('#form').innerHTML = labelForm;
     }
 
-    function goBack(){
-        Labelbox.setLabelAsCurrentAsset(asset.previous)
-        drawItem(asset.data)
-    }
-    
+        function goBack(){
+            Labelbox.currentAsset().subscribe((asset) => {
+                if (asset.previous){
+                    Labelbox.setLabelAsCurrentAsset(asset.previous)
+                }
+            })
+
+        }
+
+
     function skip() {
-        Labelbox.skip()
-        drawItem()
+        Labelbox.skip().then(() => {
+            Labelbox.fetchNextAssetToLabel();
+            console.log("skip!!")
+        });
     }
+
+
 
 </script>
