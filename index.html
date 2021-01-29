@@ -1,5 +1,8 @@
 <script src="https://api.labelbox.com/static/labeling-api.js"></script>
 <div id="form"></div>
+
+<button onclick="goBack()">Go Back </button>
+<button onclick="skip()"> skip </button>>
 <script>
     function label(label){
         Labelbox.setLabelForAsset(label).then(() => {
@@ -12,6 +15,7 @@
             drawItem(asset.data);
         }
     })
+
     function drawItem(dataToLabel){
         const labelForm = `
     <img src="${dataToLabel}" style="width: 300px;"></img>
@@ -21,6 +25,15 @@
     </div>
   `;
         document.querySelector('#form').innerHTML = labelForm;
+    }
+
+    function goBack(){
+        Labelbox.setLabelAsCurrentAsset(asset.previous)
+        drawItem()
+    }
+    
+    function skip() {
+        Labelbox.skip().then(() => console.log('Skipped!'))
     }
 
 </script>
