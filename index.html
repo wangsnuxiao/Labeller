@@ -28,12 +28,13 @@
     }
 
     function goBack(){
-        Labelbox.setLabelAsCurrentAsset(asset.previous)
+        Labelbox.setLabelAsCurrentAsset(asset.previous).then(()=> console.log('goBack!'))
         drawItem()
     }
     
     function skip() {
         Labelbox.skip().then(() => console.log('Skipped!'))
+        drawItem()
     }
 
 </script>
